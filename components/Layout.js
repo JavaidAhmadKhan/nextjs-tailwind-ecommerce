@@ -18,7 +18,7 @@ export const Layout = ({ title, children }) => {
               {/* <p className="text-lg font-bold">Wolzon</p> */}
               <Image
                 src="https://capstone-shopping-blush.vercel.app/assets/crown-ae472d93.svg"
-                className='object-cover h-auto w-full'
+                className="object-cover h-auto w-full"
                 alt="logo"
                 width={65}
                 height={65}
