@@ -8,7 +8,7 @@ export const ProductItem = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="rounded shadow"
+          className="rounded shadow w-full h-auto object-cover"
         />
       </Link>
       <div className="flex items-center justify-between px-2 gap-2 mt-2">
