@@ -20,7 +20,7 @@ export const ProductItem = ({ product }) => {
       </div>
       <div className="flex items-center justify-between gap-2 px-2">
         <p className=""> ₹{product.price}</p>
-        <button className="primary-button" type="button">
+        <button className="primary-button " type="button">
           Add to cart
         </button>
       </div>
