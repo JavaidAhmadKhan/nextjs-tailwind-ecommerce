@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 
 export const Layout = ({ title, children }) => {
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { cart } = state;
   return (
     <>
