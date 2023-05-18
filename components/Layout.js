@@ -1,8 +1,13 @@
+import { Store } from "@/utils/Store";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
+import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 
 export const Layout = ({ title, children }) => {
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
   return (
     <>
       <Head>
@@ -13,9 +18,8 @@ export const Layout = ({ title, children }) => {
       </Head>
       <div className="flex min-h-screen flex-col justify-between">
         <header>
-          <nav className="flex h-16 items-center px-4 justify-between shadow-md">
+          <nav className="flex sticky  top-0 h-16 items-center px-4 justify-between shadow-md z-2 tack">
             <Link href="/">
-              {/* <p className="text-lg font-bold">Wolzon</p> */}
               <Image
                 src="https://capstone-shopping-blush.vercel.app/assets/crown-ae472d93.svg"
                 className="object-cover h-auto w-full"
@@ -24,8 +28,16 @@ export const Layout = ({ title, children }) => {
                 height={65}
               />
             </Link>
-            <div className="flex gap-2 p-2 font-medium">
-              <Link href="/cart">Cart</Link>
+            <div className="flex gap-2 items-center p-2 font-medium">
+              <Link href="/cart">
+                {/* Cart */}
+                <ShoppingBagIcon color="gray" className="w-8 h-8 relative" />
+                {cart.cartItems.length > 0 && (
+                  <span className="absolute  px-1 text-[10px] font-bold text-white bg-blue-500 rounded-full shadow  top-7 right-[80px] ">
+                    {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  </span>
+                )}
+              </Link>
               <Link href="/login">Login</Link>
             </div>
           </nav>

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
+
 export const ProductItem = ({ product }) => {
   return (
     <div className="card">
@@ -8,7 +9,7 @@ export const ProductItem = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="rounded shadow w-full h-auto object-cover"
+          className="rounded shadow w-full h-[320px] object-cover"
         />
       </Link>
       <div className="flex items-center justify-between px-2 gap-2 mt-2">
@@ -19,10 +20,7 @@ export const ProductItem = ({ product }) => {
       </div>
       <div className="flex items-center justify-between gap-2 px-2">
         <p className=""> ₹{product.price}</p>
-        <button
-          className="primary-button"
-          type="button"
-        >
+        <button className="primary-button" type="button">
           Add to cart
         </button>
       </div>

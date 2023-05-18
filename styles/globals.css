@@ -22,5 +22,5 @@ a {
 }
 
 .primary-button {
-  @apply rounded bg-blue-400 py-2 px-4 shadow outline-none hover:bg-blue-500 active:bg-blue-400 text-white mb-2;
+  @apply rounded bg-blue-400 py-2 px-4 shadow outline-none hover:bg-blue-500 active:bg-blue-400 text-white mb-2 font-medium uppercase text-sm;
 }
