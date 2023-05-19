@@ -6,8 +6,9 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Layout } from "@/components/Layout";
 import { Store } from "@/utils/Store";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
-export default function CartScreen() {
+function CartScreen() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
 
@@ -114,3 +115,5 @@ export default function CartScreen() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

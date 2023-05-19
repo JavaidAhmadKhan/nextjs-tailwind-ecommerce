@@ -2,12 +2,18 @@ import { Store } from "@/utils/Store";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 
 export const Layout = ({ title, children }) => {
   const { state } = useContext(Store);
   const { cart } = state;
+  const [cartItemsCount, setcartItemsCount] = useState(0);
+
+  useEffect(() => {
+    setcartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  }, []);
+
   return (
     <>
       <Head>
@@ -32,9 +38,9 @@ export const Layout = ({ title, children }) => {
               <Link href="/cart">
                 {/* Cart */}
                 <ShoppingBagIcon color="gray" className="w-8 h-8 relative" />
-                {cart.cartItems.length > 0 && (
+                {cartItemsCount > 0 && (
                   <span className="absolute  px-1 text-[10px] font-bold text-white bg-blue-500 rounded-full shadow  top-7 right-[80px] ">
-                    {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    {cartItemsCount}
                   </span>
                 )}
               </Link>
