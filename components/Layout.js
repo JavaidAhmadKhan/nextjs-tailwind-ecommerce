@@ -1,23 +1,33 @@
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { Menu } from "@headlessui/react";
 import { ToastContainer } from "react-toastify";
-import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import "react-toastify/dist/ReactToastify.css";
 
+import { ShoppingBagIcon } from "@heroicons/react/24/solid";
+
 import { Store } from "@/utils/Store";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import DropdownLink from "./DropdownLink";
+import Cookies from "js-cookie";
 
 export const Layout = ({ title, children }) => {
   const { status, data: session } = useSession();
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const [cartItemsCount, setcartItemsCount] = useState(0);
 
   useEffect(() => {
     setcartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, []);
+
+  const logoutClickHandler = () => {
+    Cookies.remove("cart");
+    dispatch({ type: "CART_RESET" });
+    signOut({ callbackUrl: "/login" });
+  };
 
   return (
     <>
@@ -45,7 +55,7 @@ export const Layout = ({ title, children }) => {
                 {/* Cart */}
                 <ShoppingBagIcon color="gray" className="w-8 h-8 relative" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute  px-1 text-[10px] font-bold text-white bg-blue-500 rounded-full shadow  top-7 right-[80px] ">
+                  <span className="absolute  px-1 text-[10px] font-bold text-white bg-blue-500 rounded-full shadow  top-7 right-[110px] ">
                     {cartItemsCount}
                   </span>
                 )}
@@ -53,7 +63,28 @@ export const Layout = ({ title, children }) => {
               {status === "loading" ? (
                 "Loading..."
               ) : session?.user ? (
-                session.user.name
+                <Menu as="div" className="relative inline-block">
+                  <Menu.Button className="text-white text-sm bg-blue-500 font-bold px-3 py-2 rounded-full hover:bg-blue-700 shadow-lg">
+                    {session.user.name}
+                  </Menu.Button>
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right shadow-lg bg-white">
+                    <Menu.Item>
+                      <DropdownLink className="dropdown-link" href="/profile">
+                        Profile
+                      </DropdownLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <DropdownLink className="dropdown-link" href="/profile">
+                        Order History
+                      </DropdownLink>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <DropdownLink className="dropdown-link" href="#">
+                        <a onClick={logoutClickHandler}>Logout</a>
+                      </DropdownLink>
+                    </Menu.Item>
+                  </Menu.Items>
+                </Menu>
               ) : (
                 <Link className="p-2" href="/login">
                   Login
