@@ -1,4 +1,19 @@
+import bcrypt from "bcryptjs";
 const data = {
+  users: [
+    {
+      name: "Javaid",
+      email: "relaxjavaid@gmail.com",
+      password: bcrypt.hashSync("123456"),
+      idAdmin: true,
+    },
+    {
+      name: "Sahil",
+      email: "sahil@gmail.com",
+      password: bcrypt.hashSync("123456"),
+      idAdmin: false,
+    },
+  ],
   products: [
     {
       name: "Beach Shirt",
@@ -43,8 +58,7 @@ const data = {
       name: "Golf Pants",
       slug: "golf-pants",
       category: "Pants",
-      image:
-        "https://m.media-amazon.com/images/I/61k5w14ds2L._UY550_.jpg",
+      image: "https://m.media-amazon.com/images/I/61k5w14ds2L._UY550_.jpg",
       price: 550,
       brand: "Nike",
       rating: 4.8,
